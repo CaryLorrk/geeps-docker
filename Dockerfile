@@ -30,7 +30,8 @@ RUN ./data/cifar10/get_cifar10.sh
 
 WORKDIR /root
 
-EXPOSE 9090-9290
+RUN sed -ri 's/UsePAM yes/#UsePAM yes/g' /etc/ssh/sshd_config
+RUN sed -ri 's/#UsePAM no/UsePAM no/g' /etc/ssh/sshd_config
 
 ADD bootstrap.sh /etc/bootstrap.sh
 ENTRYPOINT ["/etc/bootstrap.sh"]
